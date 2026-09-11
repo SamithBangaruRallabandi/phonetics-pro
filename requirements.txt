@@ -5,5 +5,5 @@ requests
 pronouncing
 pandas
 SpeechRecognition
-gTTSs
+gTTS
 python-multipart
