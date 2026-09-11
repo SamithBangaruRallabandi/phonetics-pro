@@ -1,0 +1,9 @@
+streamlit
+fastapi
+uvicorn
+requests
+pronouncing
+pandas
+SpeechRecognition
+gTTSs
+python-multipart
