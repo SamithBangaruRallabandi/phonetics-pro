@@ -1,11 +1,22 @@
 import os
 import requests
 
-API_URL = os.getenv(
-    "API_URL",
-    "http://127.0.0.1:8000"
-)
+import os
+import requests
 
+try:
+    import streamlit as st
+
+    API_URL = st.secrets.get(
+        "API_URL",
+        "http://127.0.0.1:8000"
+    )
+
+except Exception:
+    API_URL = os.getenv(
+        "API_URL",
+        "http://127.0.0.1:8000"
+    )
 
 def analyze_text_api(text):
     try:
