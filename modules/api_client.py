@@ -1,29 +1,27 @@
 import os
 import requests
 
-import os
-import requests
-
 try:
     import streamlit as st
 
     API_URL = st.secrets.get(
         "API_URL",
-        "http://127.0.0.1:8000"
+        "https://phonetics-pro-h6tv.onrender.com"
     )
 
 except Exception:
     API_URL = os.getenv(
         "API_URL",
-        "http://127.0.0.1:8000"
+        "https://phonetics-pro-h6tv.onrender.com"
     )
+
 
 def analyze_text_api(text):
     try:
         response = requests.post(
             f"{API_URL}/analyze",
             json={"text": text},
-            timeout=30
+            timeout=60
         )
 
         response.raise_for_status()
@@ -50,7 +48,7 @@ def analyze_speech_api(audio_file):
         response = requests.post(
             f"{API_URL}/analyze-speech",
             files=files,
-            timeout=60
+            timeout=120
         )
 
         response.raise_for_status()
@@ -65,12 +63,13 @@ def analyze_speech_api(audio_file):
     except requests.exceptions.RequestException as e:
         return None, f"API error: {e}"
 
+
 def generate_tts_api(text):
     try:
         response = requests.post(
             f"{API_URL}/tts",
             json={"text": text},
-            timeout=60
+            timeout=120
         )
 
         response.raise_for_status()
@@ -85,6 +84,7 @@ def generate_tts_api(text):
     except requests.exceptions.RequestException as e:
         return None, f"TTS API error: {e}"
 
+
 def score_pronunciation_api(expected_text, recognized_text):
     try:
         response = requests.post(
@@ -93,7 +93,7 @@ def score_pronunciation_api(expected_text, recognized_text):
                 "expected_text": expected_text,
                 "recognized_text": recognized_text
             },
-            timeout=30
+            timeout=60
         )
 
         response.raise_for_status()
